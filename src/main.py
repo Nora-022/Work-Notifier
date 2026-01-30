@@ -3,7 +3,7 @@ import json
 import os
 import random
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from workday import WorkdayChecker
 from sender import FeishuSender
 
@@ -68,6 +68,10 @@ def main():
         "evening": "🌙 下班打卡提醒"
     }
     
+    # Calculate Beijing Time (UTC+8)
+    utc_now = datetime.now(timezone.utc)
+    beijing_time = utc_now.astimezone(timezone(timedelta(hours=8)))
+    
     card = {
         "config": {
             "wide_screen_mode": True
@@ -92,7 +96,7 @@ def main():
                 "elements": [
                     {
                         "tag": "plain_text",
-                        "content": f"发送时间: {datetime.now().strftime('%H:%M:%S')}"
+                        "content": f"发送时间: {beijing_time.strftime('%H:%M:%S')}"
                     }
                 ]
             }
