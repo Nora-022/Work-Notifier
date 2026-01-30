@@ -1,0 +1,13 @@
+name: Debug Timezone
+
+on: workflow_dispatch
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Time
+        run: |
+          echo "System Time (UTC): $(date)"
+          echo "Beijing Time (TZ): $(TZ='Asia/Shanghai' date)"
+          echo "Current Hour (TZ): $(TZ='Asia/Shanghai' date +%H)"
